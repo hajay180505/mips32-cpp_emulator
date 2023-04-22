@@ -53,7 +53,7 @@ public:
 	void execute() override;
 };
 
-vector<string> tokenizer(const string&, char);
+vector<string> tokenizer(const string&, const char&);
 
 int wc(const string&);
 
