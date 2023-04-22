@@ -7,14 +7,18 @@ public:
 	void operator()(const string&,int);
 };
 
+
 class Interpreter{
 	int lineNumber;
 	vector<string> instruction;
+	Registers reg;
+
 public:
 	string getInstruction(int);
 	Interpreter() = delete;
 	Interpreter(const string&) ;
 	void executeInstruction();
+	void displayRegisters();
 };
 
 class Instruction{
@@ -24,28 +28,32 @@ public:
 
 class OneParameterInstruction:public Instruction{
 	string operation, reg; // mflo $t0
+	Registers reg;
 public:
 	OneParameterInstruction() = delete;
-	OneParameterInstruction(const string&);
+	OneParameterInstruction(const string&, Registers&); 
 	void execute() override;
 };
 
 class TwoParameterInstruction:public Instruction{
 	string operation, reg1,reg2;
+	Registers reg;
 public:
 	TwoParameterInstruction() = delete;
-	TwoParameterInstruction(const string&);
+	TwoParameterInstruction(const string&, Registers&);
 	void execute() override;
 };
 
 class ThreeParameterInstruction:public Instruction{
 	string operation, reg1,reg2,reg3;
+	Registers reg;
 public:
 	ThreeParameterInstruction() = delete;
-	ThreeParameterInstruction(const string&);
+	ThreeParameterInstruction(const string&,Registers&);
 	void execute() override;
 };
 
 vector<string> tokenizer(const string&, char);
 
 int wc(const string&);
+
