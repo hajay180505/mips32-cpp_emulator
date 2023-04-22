@@ -1,10 +1,10 @@
 #pragma once
 #include <string>
 #include <vector>
-#include <unordered_map>
+#include <map>
 
 class Registers{
-	std::unordered_map<std::string, int> reg;
+	std::map<std::string, int> reg;
 public:
 	Registers();
 	friend std::ostream& operator<<(std::ostream&,const Registers&);

@@ -1,8 +1,9 @@
 #include "mips.h"
 #include <iostream>
 #include <string>
-#include <unordered_map>
 #include <vector>
+#include <iomanip>
+#include <fstream>
 using namespace std;
 
 OneParameterInstruction::OneParameterInstruction(const string& s, Registers& r){
@@ -66,7 +67,14 @@ void Registers::operator()(const string& s,int i){
 }
 
 ostream& operator<<(ostream& os,const Registers& r){
-
+    os<<"+==========+=========+"<<endl;
+    os<<"| Register |  Value  |"<<endl;
+    os<<"+==========+=========+"<<endl;
+    for (auto& [key,value] : r.reg){
+        os<<"|   $"<<key<<"    |   "<<setw(3)<<left<<value<<"   |"<<endl;
+    }
+    os<<"+==========+=========+"<<endl;
+    return os;
 }
 
 string Interpreter::getInstruction(int n){
@@ -74,7 +82,15 @@ string Interpreter::getInstruction(int n){
 }
 
 Interpreter::Interpreter(const std::string& filename) {
-
+    ifstream ifs(filename);
+    string line;
+    while(getline(ifs,line)){
+        instruction.push_back(line);
+    }
+    lineNumber = 0;
+    for(auto& line: instruction){
+        cout<<line<<endl;
+    }
 }
 
 void Interpreter::executeInstructions(){
