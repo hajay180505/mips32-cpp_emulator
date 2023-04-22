@@ -45,7 +45,7 @@ public:
 };
 
 class ThreeParameterInstruction:public Instruction{
-	string operation, reg1,reg2,reg3;
+	string operation, reg1,reg2,reg3; // add $t0,$t1,$t2
 	Registers reg;
 public:
 	ThreeParameterInstruction() = delete;
