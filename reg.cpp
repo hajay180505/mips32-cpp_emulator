@@ -33,7 +33,7 @@ Registers::Registers(){
 }
 
 int Registers::operator[](const string& s) const{
-	return reg.at(s);
+	return reg.at(s); // reg[s]
 }
 
 void Registers::operator()(const string& s,int i){
