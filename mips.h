@@ -23,7 +23,7 @@ public:
 };
 
 class OneParameterInstruction:public Instruction{
-	string operation, reg
+	string operation, reg;
 public:
 	
 };
