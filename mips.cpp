@@ -9,6 +9,25 @@ OneParameterInstruction::OneParameterInstruction(const string& s, Registers& r){
 
 
 }
+void OneParameterInstruction::execute(){
+
+}
+
+TwoParameterInstruction::TwoParameterInstruction(const string& s, Registers& r){
+
+
+}
+void TwoParameterInstruction::execute(){
+
+}
+
+ThreeParameterInstruction::ThreeParameterInstruction(const string& s, Registers& r){
+
+
+}
+void ThreeParameterInstruction::execute(){
+
+}
 
 
 Registers::Registers(){
@@ -46,8 +65,27 @@ void Registers::operator()(const string& s,int i){
 		cerr<<"Invalid register!";
 }
 
+ostream& operator<<(ostream& os,const Registers& r){
 
-vector<string> tokenize(const string& s, const char& c){
+}
+
+string Interpreter::getInstruction(int n){
+
+}
+
+Interpreter::Interpreter(const std::string& filename) {
+
+}
+
+void Interpreter::executeInstructions(){
+
+}
+
+void Interpreter::displayRegisters(){
+
+}
+
+vector<string> tokenizer(const string& s, const char& c){
     vector<string> tokenizedString;
     string temp;
     for (int i=0;i<s.length();i++){
@@ -72,5 +110,5 @@ vector<string> tokenize(const string& s, const char& c){
 }
 
 int wc(const string& s){
-    return tokenize(s,' ').size();
+    return tokenizer(s,' ').size();
 }

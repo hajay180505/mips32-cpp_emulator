@@ -1,23 +1,28 @@
+#pragma once
+#include <string>
+#include <vector>
+#include <unordered_map>
+
 class Registers{
-	unordered_map<string, int> reg;
+	std::unordered_map<std::string, int> reg;
 public:
 	Registers();
-	friend ostream& operator<<(ostream&,const Registers&);
-	int operator[](const string&) const;
-	void operator()(const string&,int);
+	friend std::ostream& operator<<(std::ostream&,const Registers&);
+	int operator[](const std::string&) const;
+	void operator()(const std::string&,int);
 };
 
 
 class Interpreter{
 	int lineNumber;
-	vector<string> instruction;
+	std::vector<std::string> instruction;
 	Registers reg;
 
 public:
-	string getInstruction(int);
+	std::string getInstruction(int);
 	Interpreter() = delete;
-	Interpreter(const string&) ;
-	void executeInstruction();
+	Interpreter(const std::string&) ;
+	void executeInstructions();
 	void displayRegisters();
 };
 
@@ -27,33 +32,33 @@ public:
 };
 
 class OneParameterInstruction:public Instruction{
-	string operation, reg; // mflo $t0
+	std::string operation, reg1; // mflo $t0
 	Registers reg;
 public:
 	OneParameterInstruction() = delete;
-	OneParameterInstruction(const string&, Registers&); 
+	OneParameterInstruction(const std::string&, Registers&); 
 	void execute() override;
 };
 
 class TwoParameterInstruction:public Instruction{
-	string operation, reg1,reg2;
+	std::string operation, reg1,reg2;
 	Registers reg;
 public:
 	TwoParameterInstruction() = delete;
-	TwoParameterInstruction(const string&, Registers&);
+	TwoParameterInstruction(const std::string&, Registers&);
 	void execute() override;
 };
 
 class ThreeParameterInstruction:public Instruction{
-	string operation, reg1,reg2,reg3; // add $t0,$t1,$t2
+	std::string operation, reg1,reg2,reg3; // add $t0,$t1,$t2
 	Registers reg;
 public:
 	ThreeParameterInstruction() = delete;
-	ThreeParameterInstruction(const string&,Registers&);
+	ThreeParameterInstruction(const std::string&,Registers&);
 	void execute() override;
 };
 
-vector<string> tokenizer(const string&, const char&);
+std::vector<std::string> tokenizer(const std::string&, const char&);
 
-int wc(const string&);
+int wc(const std::string&);
 
