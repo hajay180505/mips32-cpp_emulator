@@ -1,0 +1,28 @@
+string functions 
+	- tokenizer : return a vector of strings
+	- wc : return word count
+
+registers
+	- dict { name : value }
+
+	-operator[] -retrive register value
+	-operator() - modify register value
+
+interpreter
+	- lineNumber : current line of instruction
+	- instruction :string vector
+
+	- getInstruction : get i th instruction 
+	- read file : read the file and create instruction
+	- execute instruction : create instruction object and call corresponding execute
+	- displayRegisters : display the state of all registers
+
+instruction abstract 
+	- execute(String)
+oneParamInstruction
+	- execute
+twoParamInstrction
+	- execute
+threeParamInstruction
+	- execute
+
