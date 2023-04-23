@@ -8,7 +8,7 @@ class Registers{
 public:
 	Registers();
 	friend std::ostream& operator<<(std::ostream&,const Registers&);
-	int operator[](const std::string&) const;
+	int& operator[](const std::string&) ;
 	void operator()(const std::string&,int);
 };
 
@@ -17,13 +17,12 @@ class Interpreter{
 	int lineNumber;
 	std::vector<std::string> instruction;
 	Registers reg;
-
 public:
-	std::string getInstruction(int);
+	//std::string getInstruction(int);
 	Interpreter() = delete;
 	Interpreter(const std::string&) ;
 	void executeInstructions();
-	void displayRegisters();
+	void displayRegisters() const;
 };
 
 class Instruction{
@@ -62,3 +61,6 @@ std::vector<std::string> tokenizer(const std::string&, const char&);
 
 int wc(const std::string&);
 
+std::string removeComments(const std::string&);
+
+std::string replace(std::string& , const char& ,const char& );
