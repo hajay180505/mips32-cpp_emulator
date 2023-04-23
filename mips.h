@@ -9,14 +9,21 @@ public:
 	Registers();
 	friend std::ostream& operator<<(std::ostream&,const Registers&);
 	int& operator[](const std::string&) ;
-	void operator()(const std::string&,int);
 };
 
+class Data{
+	std::map<std::string, std::string> data;
+public:
+	friend std::ostream& operator<<(std::ostream&,const Data&);
+	std::string& operator[](const std::string&) ;
+	const std::string& operator()(const std::string&) const;
+};
 
 class Interpreter{
 	int lineNumber;
 	std::vector<std::string> instruction;
 	Registers reg;
+	Data d;
 public:
 	//std::string getInstruction(int);
 	Interpreter() = delete;
@@ -32,7 +39,7 @@ public:
 
 class OneParameterInstruction:public Instruction{
 	std::string operation, reg1; // mflo $t0
-	Registers reg;
+	Registers& reg;
 public:
 	OneParameterInstruction() = delete;
 	OneParameterInstruction(const std::string&, Registers&); 
@@ -41,7 +48,7 @@ public:
 
 class TwoParameterInstruction:public Instruction{
 	std::string operation, reg1,reg2;
-	Registers reg;
+	Registers& reg;
 public:
 	TwoParameterInstruction() = delete;
 	TwoParameterInstruction(const std::string&, Registers&);
@@ -50,10 +57,26 @@ public:
 
 class ThreeParameterInstruction:public Instruction{
 	std::string operation, reg1,reg2,reg3; // add $t0,$t1,$t2
-	Registers reg;
+	Registers& reg;
 public:
 	ThreeParameterInstruction() = delete;
 	ThreeParameterInstruction(const std::string&,Registers&);
+	void execute() override;
+};
+
+class SyscallInstruction:public Instruction{
+	Registers& reg;
+public:
+	SyscallInstruction() = delete;
+	SyscallInstruction(Registers&);
+	void execute() override;
+};
+
+class DataInstruction:public Instruction{
+	Data& d;
+public:
+	DataInstruction() = delete;
+	DataInstruction(const std::string& , Data& );
 	void execute() override;
 };
 
