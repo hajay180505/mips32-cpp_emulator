@@ -1,7 +1,10 @@
-// filler
-Line 2
-Line 3
-Line 4
-Line 5
-Line 6
-Line 7
+.text
+main:
+    li $t0,4
+
+    li $v0,1
+    move $t0,$a0
+    syscall
+
+    li $v0,10
+    syscall

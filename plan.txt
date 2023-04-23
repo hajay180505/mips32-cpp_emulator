@@ -10,6 +10,12 @@ registers
 	- operator[] :retrive and modify register  [done]
 	- operator<< : friend to display all registers [done]
 
+data
+	- dict { name : value } [done]
+	- operator[] : create data [done]
+	- operator() : retrive data [done]
+	- operator<< : friend to display all data [done]
+
 interpreter
 	- lineNumber : current line of instruction [done]
 	- instruction :string vector [done]
@@ -32,5 +38,7 @@ threeParameterInstruction
 	- execute
 
 syscallInstruction
-	-execute
+	- execute
 
+dataInstruction
+	- execute

@@ -4,11 +4,11 @@
 #include <map>
 
 class Registers{
-	std::map<std::string, int> reg;
+	std::map<std::string, std::string> reg;
 public:
 	Registers();
 	friend std::ostream& operator<<(std::ostream&,const Registers&);
-	int& operator[](const std::string&) ;
+	std::string& operator[](const std::string&) ;
 };
 
 class Data{
@@ -30,6 +30,7 @@ public:
 	Interpreter(const std::string&) ;
 	void executeInstructions();
 	void displayRegisters() const;
+	~Interpreter();
 };
 
 class Instruction{
@@ -47,7 +48,7 @@ public:
 };
 
 class TwoParameterInstruction:public Instruction{
-	std::string operation, reg1,reg2;
+	std::string operation, arg1,arg2;
 	Registers& reg;
 public:
 	TwoParameterInstruction() = delete;
@@ -80,10 +81,13 @@ public:
 	void execute() override;
 };
 
-std::vector<std::string> tokenizer(const std::string&, const char&);
+std::vector<std::string> tokenizer(const std::string&, const char& );
 
 int wc(const std::string&);
 
 std::string removeComments(const std::string&);
 
-std::string replace(std::string& , const char& ,const char& );
+std::string replace(const std::string& , const char& ,const char& );
+
+std::string strip(const std::string &s);
+
