@@ -127,12 +127,34 @@ void TwoParameterInstruction::execute(){
 
 //--------------------Three parameter instruction----------------------------
 ThreeParameterInstruction::ThreeParameterInstruction(const string& s, Registers& r) :reg(r) {
-
-
+    vector<string> words = tokenizer(s);
+    operation = words[0];
+    arg1 = words[1];
+    arg2 = words[2];
+    arg3 = words[3];
 }
 
 void ThreeParameterInstruction::execute(){
-
+    if(operation == "addi"){
+        reg[arg1] = stoi(reg[arg2]) + stoi(arg3);
+    }
+    else if(operation == "subi"){
+        reg[arg1] = stoi(reg[arg2]) - stoi(arg3);
+    }
+    else if(operation == "add"){
+        reg[arg1] = stoi(reg[arg2]) + stoi(reg[arg3]);
+    }
+    else if(operation == "sub"){
+        reg[arg1] = stoi(reg[arg2]) - stoi(reg[arg3]);
+    }
+    else if(operation == "mul"){
+        reg[arg1] = stoi(reg[arg2]) * stoi(reg[arg3]); 
+    }
+    else if(operation == "div"){
+        if(stoi(reg[arg3])){
+            reg[arg1] = stoi(reg[arg2]) / stoi(reg[arg3]);
+        }
+    }
 }
 
 //--------------------Syscall instruction----------------------------
