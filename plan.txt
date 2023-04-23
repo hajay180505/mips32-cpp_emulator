@@ -1,28 +1,33 @@
 string functions 
-	- tokenizer : return a vector of strings
-	- wc : return word count
+	- tokenizer : return a vector of strings [done]
+	- wc : return word count [done]
+	- remove comments : ignore stuff with # [done]
+	- replace : replace occurance of arg1 with arg2 in the supplied string [done]
 
 registers
-	- dict { name : value }
+	- dict { name : value } [done]
 
-	-operator[] -retrive register value
-	-operator() - modify register value
+	- operator[] :retrive and modify register  [done]
+	- operator<< : friend to display all registers [done]
 
 interpreter
-	- lineNumber : current line of instruction
-	- instruction :string vector
+	- lineNumber : current line of instruction [done]
+	- instruction :string vector [done]
 
-	- getInstruction : get i th instruction 
-	- read file : read the file and create instruction
-	- execute instruction : create instruction object and call corresponding execute
-	- displayRegisters : display the state of all registers
+	- getInstruction : get i th instruction [X]
+	- read file : read the file and create instruction [done]
+	- execute instruction : create instruction object and call corresponding execute [done]
+	- displayRegisters : display the state of all registers [done]
 
 instruction abstract 
-	- execute(String)
-oneParamInstruction
+	- execute(String) [done]
+
+oneParameterInstruction
 	- execute
-twoParamInstrction
+
+twoParameterInstrction
 	- execute
-threeParamInstruction
+
+threeParameterInstruction
 	- execute
 

@@ -7,8 +7,8 @@ class Registers{
 	unordered_map<string , int> reg;
 	public :
 		Registers();
-		int operator[](const string&) const;
-		void operator()(const string&, int);
+		int& operator[](const string&) ;
+		//void operator()(const string&, int);
 };
 Registers::Registers(){
 	reg["t0"] = 0;
@@ -32,21 +32,26 @@ Registers::Registers(){
 	reg["s7"] = 0;
 }
 
-int Registers::operator[](const string& s) const{
-	return reg.at(s); // reg[s]
-}
-
-void Registers::operator()(const string& s,int i){
+int& Registers::operator[](const string& s) {
 	if (reg.find(s) != reg.end() )
-		reg[s] = i;
+		return reg[s];
 	else
 		cerr<<"Invalid register!";
 }
+
+// void Registers::operator()(const string& s,int i){
+// 	if (reg.find(s) != reg.end() )
+// 		reg[s] = i;
+// 	else
+// 		cerr<<"Invalid register!";
+// }
 
 
 int main(){
 	Registers r;
 	cout<<r["t0"]<<endl;
-	r("t0",100);
+	r["t0"] = 10;
+	r["t1"] = 11;
+
 	cout<<r["t0"];
 }

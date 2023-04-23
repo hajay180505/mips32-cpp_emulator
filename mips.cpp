@@ -6,22 +6,29 @@
 #include <fstream>
 using namespace std;
 
+//--------------------One parameter instruction----------------------------
 OneParameterInstruction::OneParameterInstruction(const string& s, Registers& r){
 
 
 }
+
 void OneParameterInstruction::execute(){
 
 }
 
+//--------------------Two parameter instruction----------------------------
+// std::string operation, reg1,reg2;
+// Registers reg;
 TwoParameterInstruction::TwoParameterInstruction(const string& s, Registers& r){
 
 
 }
+
 void TwoParameterInstruction::execute(){
 
 }
 
+//--------------------Three parameter instruction----------------------------
 ThreeParameterInstruction::ThreeParameterInstruction(const string& s, Registers& r){
 
 
@@ -30,6 +37,7 @@ void ThreeParameterInstruction::execute(){
 
 }
 
+//-------------------------------Registers-----------------------------------
 
 Registers::Registers(){
 	reg["t0"] = 0;
@@ -51,12 +59,16 @@ Registers::Registers(){
 	reg["s5"] = 0;
 	reg["s6"] = 0;
 	reg["s7"] = 0;
+    
     reg["lo"] = 0;
     reg["hi"] = 0;
 }
 
-int Registers::operator[](const string& s) const{
-	return reg.at(s); // reg[s]
+int& Registers::operator[](const string& s){
+	if (reg.find(s) != reg.end() )
+		return reg[s];
+	else
+		cerr<<"Invalid register!";
 }
 
 void Registers::operator()(const string& s,int i){
@@ -77,31 +89,55 @@ ostream& operator<<(ostream& os,const Registers& r){
     return os;
 }
 
-string Interpreter::getInstruction(int n){
-
-}
-
+//------------------------Interpreter--------------------------------
 Interpreter::Interpreter(const std::string& filename) {
     ifstream ifs(filename);
     string line;
     while(getline(ifs,line)){
-        instruction.push_back(line);
+        instruction.push_back(removeComments(line));
     }
     lineNumber = 0;
-    for(auto& line: instruction){
-        cout<<line<<endl;
-    }
+    // for(auto& line: instruction){
+    //     cout<<line<<endl;
+    // }
 }
 
 void Interpreter::executeInstructions(){
-
+    for (auto& line: instruction){
+        Instruction *inst = nullptr;
+        if(line==""){
+            continue;
+        }
+        if (wc(replace(line))==2){
+            inst = new OneParameterInstruction(line,reg);
+        }
+        else if (wc(replace(line))==3){
+            inst = new TwoParameterInstruction(line,reg);
+        }
+        else if (wc(replace(line))==4){
+            inst = new ThreeParameterInstruction(line,reg);
+        }
+        else{
+            cerr<<"Invalid instruction : "<<line<<endl;
+        }
+        inst->execute();
+    }
 }
 
-void Interpreter::displayRegisters(){
-
+void Interpreter::displayRegisters() const{
+    cout << reg;
 }
 
-vector<string> tokenizer(const string& s, const char& c){
+/*
+string Interpreter::getInstruction(int n){
+    if (n<instruction.size())
+        return instruction[n];
+    return "";
+}
+*/
+
+//--------------------Non-member functions----------------------------
+vector<string> tokenizer(const string& s, const char& c = ' '){
     vector<string> tokenizedString;
     string temp;
     for (int i=0;i<s.length();i++){
@@ -126,5 +162,24 @@ vector<string> tokenizer(const string& s, const char& c){
 }
 
 int wc(const string& s){
-    return tokenizer(s,' ').size();
+    return tokenizer(s).size();
+}
+
+string removeComments(const string& s){
+    string answer = "";
+    for(int i=0;i<s.length();i++){
+        if (s[i]=='#')
+            return answer;
+        else
+            answer+=s[i];
+    }
+    return answer;
+}
+
+string replace(string& s, const char& h = ',',const char& n = ' '){
+	string answer = s;
+    for (int i=0;i<s.length();i++){
+		if (s[i]==h) answer[i] = n;
+	}
+	return answer;
 }
