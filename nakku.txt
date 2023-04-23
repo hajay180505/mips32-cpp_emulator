@@ -1,10 +1,10 @@
 .text
 main:
-    li $t0,4
+    li $lo,2
+    mflo $a1
 
-    li $v0,1
-    move $t0,$a0
-    syscall
+    li $hi,4
+    mfhi $a0
 
     li $v0,10
     syscall

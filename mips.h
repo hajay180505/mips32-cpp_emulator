@@ -39,7 +39,7 @@ public:
 };
 
 class OneParameterInstruction:public Instruction{
-	std::string operation, reg1; // mflo $t0
+	std::string operation, arg1; // mflo $t0
 	Registers& reg;
 public:
 	OneParameterInstruction() = delete;
