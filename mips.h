@@ -57,7 +57,7 @@ public:
 };
 
 class ThreeParameterInstruction:public Instruction{
-	std::string operation, reg1,reg2,reg3; // add $t0,$t1,$t2
+	std::string operation, arg1,arg2,arg3; // add $t0,$t1,$t2
 	Registers& reg;
 public:
 	ThreeParameterInstruction() = delete;
