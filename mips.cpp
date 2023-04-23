@@ -82,12 +82,24 @@ string strip(const string &s){
 }
 //--------------------One parameter instruction----------------------------
 OneParameterInstruction::OneParameterInstruction(const string& s, Registers& r) :reg(r) {
-
-
+    vector<string> words = tokenizer(s);
+    operation = words[0];
+    arg1 = words[1];
 }
 
 void OneParameterInstruction::execute(){
-
+    if(operation == "mfhi"){
+        reg[arg1] = reg["$hi"];
+    }
+    else if(operation == "mflo"){
+        reg[arg1] = reg["$lo"];
+    }
+    else if(operation == "mthi"){
+        reg["$hi"] = reg[arg1];
+    }
+    else if(operation == "mtlo"){
+        reg["$lo"] = reg[arg1];
+    }
 }
 
 //--------------------Two parameter instruction----------------------------
