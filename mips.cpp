@@ -136,23 +136,23 @@ ThreeParameterInstruction::ThreeParameterInstruction(const string& s, Registers&
 
 void ThreeParameterInstruction::execute(){
     if(operation == "addi"){
-        reg[arg1] = stoi(reg[arg2]) + stoi(arg3);
+        reg[arg1] = to_string(stoi(reg[arg2]) + stoi(arg3));
     }
     else if(operation == "subi"){
-        reg[arg1] = stoi(reg[arg2]) - stoi(arg3);
+        reg[arg1] = to_string(stoi(reg[arg2]) - stoi(arg3));
     }
     else if(operation == "add"){
-        reg[arg1] = stoi(reg[arg2]) + stoi(reg[arg3]);
+        reg[arg1] = to_string(stoi(reg[arg2]) + stoi(reg[arg3]));
     }
     else if(operation == "sub"){
-        reg[arg1] = stoi(reg[arg2]) - stoi(reg[arg3]);
+        reg[arg1] = to_string(stoi(reg[arg2]) - stoi(reg[arg3]));
     }
     else if(operation == "mul"){
-        reg[arg1] = stoi(reg[arg2]) * stoi(reg[arg3]); 
+        reg[arg1] = to_string(stoi(reg[arg2]) * stoi(reg[arg3])); 
     }
     else if(operation == "div"){
         if(stoi(reg[arg3])){
-            reg[arg1] = stoi(reg[arg2]) / stoi(reg[arg3]);
+            reg[arg1] = to_string(stoi(reg[arg2]) / stoi(reg[arg3]));
         }
     }
 }
