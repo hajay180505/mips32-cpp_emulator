@@ -6,6 +6,10 @@ main:
     mflo $a1
     la $t5,print
 
+    li $v0,5
+    syscall
+    move $v0,$t6
+
     li $v0,4
     la $a0,print
     syscall

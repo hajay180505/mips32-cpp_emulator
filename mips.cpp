@@ -19,8 +19,6 @@ vector<string> tokenizer(const string& s, const char& c = ' '){
         break;
         }
         if (s[i]==c){
-  // cout<<s[i]<<"=="<<c<<endl;
-  // cout<<temp<<endl;
             tokenizedString.push_back(temp);
             temp = "";
         }
@@ -168,10 +166,11 @@ SyscallInstruction::SyscallInstruction(Registers& r) :reg(r){
 }
 
 void SyscallInstruction::execute(){
-    //cout<<"reg[$v0] = "<< reg["$v0"]<<endl;
     if (reg["$v0"] == to_string(1) || reg["$v0"] == to_string(2) || reg["$v0"] == to_string(3) || reg["$v0"] == to_string(4)   ){
         cout<<reg["$a0"];
-        //cout<<"Here"<<endl;
+    }
+    else if (reg["$v0"] == to_string(5) || reg["$v0"] == to_string(6) || reg["$v0"] == to_string(7)   ){
+        cin>>reg["$v0"];
     }
 }
 
@@ -182,8 +181,6 @@ DataInstruction::DataInstruction(const std::string& line, Data&  data ) :d(data)
 
 void DataInstruction::execute(){
     vector<string> words = tokenizer(instruction);
-    //cout<<"k: ::"<< strip(replace(words[0],':',' ')) <<"::"<<endl;
-    //cout<<"v: ::"<< strip(replace(words[2],'\"',' ')) <<"::"<<endl;
     d[strip(replace(words[0],':',' '))] = strip(replace(words[2],'\"',' '));
 }
 
@@ -238,7 +235,6 @@ ostream& operator<<(ostream& os,const Registers& r){
             continue;
         }
         if (kv.second.length()>3){
-            //os<<kv.second<<endl;
             os<<"|   "<<kv.first<<"    |   "<<setw(3)<<left<<"str"<<"   |"<<endl;
             continue;
         }
@@ -274,9 +270,6 @@ Interpreter::Interpreter(const std::string& filename) {
         instruction.push_back(removeComments(line));
     }
     lineNumber = 0;
-    // for(auto& line: instruction){
-    //     cout<<line<<endl;
-    // }
 }
 
 void Interpreter::executeInstructions(){
@@ -284,15 +277,11 @@ void Interpreter::executeInstructions(){
     for (auto& line: instruction){
         line = replace(strip(line));
         Instruction *inst = nullptr;
-        //cout<<"WC of (" << line << ") is " << wc(line)<<endl;
         if(line==""){
             continue;
         }
         if (wc(line)==1){
-            //cout<<"In wc 1"<<endl;
-            //cout<<(line == "syscall") <<endl;
             if (line=="syscall"){
-                //cout<<"in if"<<endl;
                 if (reg["$v0"] == to_string(10)){
                     return;
                 }
@@ -313,15 +302,12 @@ void Interpreter::executeInstructions(){
         }
         if (textSegment){
             if (wc(replace(line))==2){
-                //cout<<"One"<<endl;
                 inst = new OneParameterInstruction(line,reg);
             }
             else if (wc(replace(line))==3){
-                //cout<<"Two"<<endl;
                 inst = new TwoParameterInstruction(line,reg,d);
             }
             else if (wc(replace(line))==4){
-                //cout<<"Three"<<endl;
                 inst = new ThreeParameterInstruction(line,reg);
             }
             else if (wc(line)!=1){
@@ -343,11 +329,4 @@ void Interpreter::displayRegisters() const{
 Interpreter::~Interpreter(){
     cout<<"Program execution completed!"<<endl;
 }
-/*
-string Interpreter::getInstruction(int n){
-    if (n<instruction.size())
-        return instruction[n];
-    return "";
-}
-*/
 

@@ -29,16 +29,16 @@ instruction abstract
 	- execute(String) [done]
 
 oneParameterInstruction
-	- execute
+	- execute [done]
 
-twoParameterInstrction
-	- execute
+twoParameterInstruction
+	- execute [done]
 
 threeParameterInstruction
-	- execute
+	- execute [done]
 
 syscallInstruction
-	- execute
+	- execute [done]
 
 dataInstruction
-	- execute
+	- execute [done]

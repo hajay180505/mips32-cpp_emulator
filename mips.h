@@ -25,7 +25,6 @@ class Interpreter{
 	Registers reg;
 	Data d;
 public:
-	//std::string getInstruction(int);
 	Interpreter() = delete;
 	Interpreter(const std::string&) ;
 	void executeInstructions();
