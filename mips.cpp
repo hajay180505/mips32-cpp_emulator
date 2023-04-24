@@ -222,12 +222,12 @@ ostream& operator<<(ostream& os,const Registers& r){
     os<<"+==========+=========+"<<endl;
     os<<"| Register |  Value  |"<<endl;
     os<<"+==========+=========+"<<endl;
-    for (auto& [key,value] : r.reg){
-        if (key == "$zero"){
+    for (auto& kv : r.reg){
+        if (kv.first == "$zero"){
             os<<"|  $zero   |   0     |"<<endl;
             continue;
         }
-        os<<"|   "<<key<<"    |   "<<setw(3)<<left<<value<<"   |"<<endl;
+        os<<"|   "<<kv.first<<"    |   "<<setw(3)<<left<<kv.second<<"   |"<<endl;
     }
     os<<"+==========+=========+"<<endl;
     return os;
@@ -236,8 +236,8 @@ ostream& operator<<(ostream& os,const Registers& r){
 //---------------------------Data------------------------------------
 
 ostream& operator<<(ostream& os,const Data& d){
-    for(auto& [key,value] : d.data){
-        os<<key<<" : "<<value<<endl;
+    for(auto& kv : d.data){
+        os<<kv.first<<" : "<<kv.second<<endl;
     }
     return os;
 }
