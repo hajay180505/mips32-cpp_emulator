@@ -50,9 +50,10 @@ public:
 class TwoParameterInstruction:public Instruction{
 	std::string operation, arg1,arg2;
 	Registers& reg;
+	Data &data;
 public:
 	TwoParameterInstruction() = delete;
-	TwoParameterInstruction(const std::string&, Registers&);
+	TwoParameterInstruction(const std::string&, Registers&,Data&);
 	void execute() override;
 };
 
@@ -75,6 +76,7 @@ public:
 
 class DataInstruction:public Instruction{
 	Data& d;
+	std::string instruction;
 public:
 	DataInstruction() = delete;
 	DataInstruction(const std::string& , Data& );

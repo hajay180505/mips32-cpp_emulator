@@ -1,15 +1,22 @@
+.data
+print: .asciiz "Helloworld!"
 .text
 main:
     li $lo,2
     mflo $a1
+    la $t5,print
+
+    li $v0,4
+    la $a0,print
+    syscall
 
     addi $t0,$t0,5
     subi $t1,$t1,5
     mul $t2,$t1,$t0
     div $t3,$t1,$t0
 
-    li $hi,4
-    mfhi $a0
+    #li $hi,4
+    #mfhi $a0
 
     li $v0,10
     syscall

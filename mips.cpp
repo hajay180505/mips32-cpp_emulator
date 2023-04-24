@@ -105,7 +105,7 @@ void OneParameterInstruction::execute(){
 //--------------------Two parameter instruction----------------------------
 // std::string operation, reg1,reg2;
 // Registers reg;
-TwoParameterInstruction::TwoParameterInstruction(const string& s, Registers& r) :reg(r) {
+TwoParameterInstruction::TwoParameterInstruction(const string& s, Registers& r,Data &d) :reg(r),data(d) {
     //cout<<"In 2"<<endl;
     vector<string> words = tokenizer(s);
     //cout<<"0 :"<<words[0] <<"\n1:"<<words[1]<<"\n2:"<<words[2]<<endl;
@@ -122,6 +122,11 @@ void TwoParameterInstruction::execute(){
     }
     else if (operation == "move"){
         reg[arg2] = reg[arg1];
+    }
+    else if(operation == "la"){
+        //cout<<"data[arg2] = ::"<<data[arg2]<<"::"<<endl;
+        reg[arg1] = data[arg2];
+        //cout<< "reg["<<arg1<<"] = "<<reg[arg1]<<endl;
     }
 }
 
@@ -163,18 +168,23 @@ SyscallInstruction::SyscallInstruction(Registers& r) :reg(r){
 }
 
 void SyscallInstruction::execute(){
-    if (reg["$v0"] == to_string(1) || reg["$v0"] == to_string(2) || reg["$v0"] == to_string(3 || reg["$v0"] == to_string(4) )  ){
+    //cout<<"reg[$v0] = "<< reg["$v0"]<<endl;
+    if (reg["$v0"] == to_string(1) || reg["$v0"] == to_string(2) || reg["$v0"] == to_string(3) || reg["$v0"] == to_string(4)   ){
         cout<<reg["$a0"];
+        //cout<<"Here"<<endl;
     }
 }
 
 //----------------------Data instruction------------------------------
 DataInstruction::DataInstruction(const std::string& line, Data&  data ) :d(data){
-
+    instruction = line;
 }
 
 void DataInstruction::execute(){
-
+    vector<string> words = tokenizer(instruction);
+    //cout<<"k: ::"<< strip(replace(words[0],':',' ')) <<"::"<<endl;
+    //cout<<"v: ::"<< strip(replace(words[2],'\"',' ')) <<"::"<<endl;
+    d[strip(replace(words[0],':',' '))] = strip(replace(words[2],'\"',' '));
 }
 
 //-------------------------------Registers-----------------------------------
@@ -225,6 +235,11 @@ ostream& operator<<(ostream& os,const Registers& r){
     for (auto& kv : r.reg){
         if (kv.first == "$zero"){
             os<<"|  $zero   |   0     |"<<endl;
+            continue;
+        }
+        if (kv.second.length()>3){
+            //os<<kv.second<<endl;
+            os<<"|   "<<kv.first<<"    |   "<<setw(3)<<left<<"str"<<"   |"<<endl;
             continue;
         }
         os<<"|   "<<kv.first<<"    |   "<<setw(3)<<left<<kv.second<<"   |"<<endl;
@@ -303,7 +318,7 @@ void Interpreter::executeInstructions(){
             }
             else if (wc(replace(line))==3){
                 //cout<<"Two"<<endl;
-                inst = new TwoParameterInstruction(line,reg);
+                inst = new TwoParameterInstruction(line,reg,d);
             }
             else if (wc(replace(line))==4){
                 //cout<<"Three"<<endl;
